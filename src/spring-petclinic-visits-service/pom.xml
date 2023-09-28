@@ -54,6 +54,11 @@
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
 
+        <!-- <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+        </dependency> -->
+
         <!-- Third parties -->
         <dependency>
             <groupId>org.projectlombok</groupId>

@@ -1,0 +1,65 @@
+# https://review.learn.microsoft.com/en-us/training/modules/migrate-spring-application-to-azure-enterprise/2-create-azure-spring-apps-enterprise-service?branch=pr-en-us-37153
+# chmod +x ./lab2.azcli
+
+# Variables
+TENANT_ID="16b3c013-d300-468d-ac64-7eda0820b6d3"
+SUBSCRIPTION_ID="5fb73327-9152-4f64-bf8a-90dc0cc4ad8f"
+
+az login --tenant $TENANT_ID
+# az account list -o table
+az account set --subscription $SUBSCRIPTION_ID
+az account show
+
+UNIQUEID=$(openssl rand -hex 3)
+APPNAME=petclinic
+RESOURCE_GROUP=rg-$APPNAME-$UNIQUEID
+LOCATION=eastus
+az group create -g $RESOURCE_GROUP -l $LOCATION
+
+az extension add --upgrade --name spring
+
+# az extension list
+# az extension remove --name spring-cloud
+
+az provider register --namespace Microsoft.SaaS
+az provider show -n Microsoft.SaaS --query registrationState
+
+az term accept \
+    --publisher vmware-inc \
+    --product azure-spring-cloud-vmware-tanzu-2 \
+    --plan asa-ent-hr-mtr
+
+    SPRING_APPS_SERVICE=sa-$APPNAME-$UNIQUEID
+az spring create \
+    --resource-group $RESOURCE_GROUP \
+    --name $SPRING_APPS_SERVICE \
+    --sku enterprise \
+    --enable-application-configuration-service \
+    --enable-service-registry \
+    --enable-gateway \
+    --enable-api-portal
+
+    az config set defaults.group=$RESOURCE_GROUP defaults.spring=$SPRING_APPS_SERVICE
+
+
+# ----
+
+GIT_REPO=https://github.com/simonkurtz-MSFT/spring-petclinic-microservices-config.git
+GIT_USERNAME=simonkurtz-MSFT
+GIT_PASSWORD=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
+
+# ----
+
+MYSQL_SERVER_NAME=mysql-$APPNAME-$UNIQUEID
+MYSQL_ADMIN_USERNAME=myadmin
+MYSQL_ADMIN_PASSWORD=CWsxjswLfMB8QH1AZBi
+DATABASE_NAME=petclinic
+
+az mysql flexible-server create \
+     --admin-user myadmin \
+     --admin-password ${MYSQL_ADMIN_PASSWORD} \
+     --name ${MYSQL_SERVER_NAME} \
+     --resource-group ${RESOURCE_GROUP}
+
+# MySQL connection string: 
+# "mysql flexibleserverdb --host mysql-petclinic-d4715a.mysql.database.azure.com --user myadmin --password=CWsxjswLfMB8QH1AZBi"

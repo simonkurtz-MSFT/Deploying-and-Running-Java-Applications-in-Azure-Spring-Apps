@@ -1,0 +1,15 @@
+# https://review.learn.microsoft.com/en-us/training/modules/enable-monitoring-end-to-end-tracing-enterprise
+# chmod +x ./lab3.azcli
+
+# Variables
+TENANT_ID="16b3c013-d300-468d-ac64-7eda0820b6d3"
+SUBSCRIPTION_ID="5fb73327-9152-4f64-bf8a-90dc0cc4ad8f"
+LOCATION="eastus"
+UNIQUEID="d4715a"
+APPNAME="petclinic"
+RESOURCE_GROUP=rg-$APPNAME-$UNIQUEID
+SPRING_APPS_SERVICE=sa-$APPNAME-$UNIQUEID
+
+az config set defaults.group=$RESOURCE_GROUP defaults.spring=$SPRING_APPS_SERVICE
+
+az config set extension.use_dynamic_install=yes_without_prompt

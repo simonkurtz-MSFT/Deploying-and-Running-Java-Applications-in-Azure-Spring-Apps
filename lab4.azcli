@@ -1,0 +1,33 @@
+# https://review.learn.microsoft.com/en-us/training/modules/enable-monitoring-end-to-end-tracing-enterprise
+# chmod +x ./lab3.azcli
+
+# Variables
+TENANT_ID=16b3c013-d300-468d-ac64-7eda0820b6d3
+SUBSCRIPTION_ID=5fb73327-9152-4f64-bf8a-90dc0cc4ad8f
+MYSQL_ADMIN_PASSWORD=CWsxjswLfMB8QH1AZBi
+UNIQUEID=d4715a
+# UNIQUEID=<ENTER UNIQUE ID>
+# MYSQL_ADMIN_PASSWORD=<ENTER YOUR PASSWORD>
+MYSQL_ADMIN_USERNAME=myadmin
+LOCATION=eastus
+APPNAME=petclinic
+RESOURCE_GROUP=rg-$APPNAME-$UNIQUEID
+SPRING_APPS_SERVICE=sa-$APPNAME-$UNIQUEID
+MYSQL_SERVER_NAME=mysql-$APPNAME-$UNIQUEID
+API_GATEWAY=api-gateway
+ADMIN_SERVER=admin-server
+CUSTOMERS_SERVICE=customers-service
+VETS_SERVICE=vets-service
+VISITS_SERVICE=visits-service
+VERSION=3.0.2
+CUSTOMERS_SERVICE_JAR=spring-petclinic-customers-service/target/spring-petclinic-customers-service-$VERSION.jar
+VISITS_SERVICE_JAR=spring-petclinic-visits-service/target/spring-petclinic-visits-service-$VERSION.jar
+VETS_SERVICE_JAR=spring-petclinic-vets-service/target/spring-petclinic-vets-service-$VERSION.jar
+DATABASE_NAME=petclinic
+GIT_REPO=https://github.com/simonkurtz-MSFT/spring-petclinic-microservices-config.git
+GIT_USERNAME=simonkurtz-MSFT
+GIT_PASSWORD=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
+KEY_VAULT=kv-petclinic-d4715a
+
+az config set defaults.group=$RESOURCE_GROUP defaults.spring=$SPRING_APPS_SERVICE
+az config set extension.use_dynamic_install=yes_without_prompt
