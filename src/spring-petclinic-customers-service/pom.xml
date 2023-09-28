@@ -86,6 +86,11 @@
             <artifactId>opentelemetry-exporter-zipkin</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.azure.spring</groupId>
+            <artifactId>spring-cloud-azure-stream-binder-eventhubs</artifactId>
+        </dependency>
+
         <!-- Testing -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
